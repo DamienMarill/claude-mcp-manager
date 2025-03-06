@@ -1,6 +1,11 @@
 {
   "name": "claude-mcp-manager",
   "version": "1.0.0",
+  "description": "Un gestionnaire de Model Context Protocol pour Claude Desktop",
+  "author": {
+    "name": "Marill",
+    "url": "https://marill.dev"
+  },
   "main": "src/main/main.js",
   "scripts": {
     "ng": "ng",
@@ -12,7 +17,8 @@
     "electron-dev": "ng build --base-href ./ && electron .",
     "electron-only": "electron .",
     "electron-dev-norebuild": "electron .",
-    "package": "electron-builder build"
+    "package": "electron-builder build",
+    "package-portable": "electron-builder build --win portable"
   },
   "private": true,
   "dependencies": {
@@ -60,8 +66,11 @@
       "src/assets/**/*"
     ],
     "win": {
-      "target": "nsis",
-      "icon": "src/assets/icon-duck-large.svg"
+      "target": ["portable"],
+      "icon": "src/assets/icon-duck.svg"
+    },
+    "portable": {
+      "artifactName": "ClaudeMCPManager.exe"
     }
   }
 }
