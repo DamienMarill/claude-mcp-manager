@@ -66,8 +66,7 @@
       "src/assets/**/*"
     ],
     "win": {
-      "target": ["portable"],
-      "icon": "src/assets/icon-duck.svg"
+      "target": ["portable"]
     },
     "portable": {
       "artifactName": "ClaudeMCPManager.exe"
