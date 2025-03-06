@@ -1,0 +1,3 @@
+@echo off
+echo Lancement de l'application Claude MCP Manager en mode administrateur...
+powershell -Command "Start-Process cmd -ArgumentList '/c cd /d %CD% && npm run electron-dev' -Verb RunAs"

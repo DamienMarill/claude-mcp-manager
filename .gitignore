@@ -1,0 +1,59 @@
+# Node.js dependencies
+node_modules/
+
+# Angular build output
+dist/
+dist-electron/
+.angular/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# OS specific files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE specific files
+.idea/
+.vscode/
+*.sublime-workspace
+*.sublime-project
+.project
+.classpath
+*.launch
+.settings/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw*
+
+# Angular compiled output
+/tmp
+/out-tsc
+/bazel-out
+
+# Misc
+.sass-cache/
+connect.lock
+coverage/
+libpeerconnection.log
+testem.log
+/typings/
+
+# System Files
+.DS_Store
+Thumbs.db

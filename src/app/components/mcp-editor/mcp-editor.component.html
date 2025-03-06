@@ -1,0 +1,107 @@
+<div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+  <div class="modal-box w-full max-w-md bg-base-100 p-4 fade-in">
+    <h3 class="font-bold text-lg mb-3">{{ isNew ? 'Ajouter un MCP' : 'Modifier le MCP' }}</h3>
+
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-control w-full mb-3">
+        <label class="label py-1">
+          <span class="label-text">Nom (identifiant)</span>
+        </label>
+        <input
+          type="text"
+          class="input input-bordered input-sm w-full"
+          [(ngModel)]="editingItem.name"
+          name="name"
+          placeholder="ex: github-mcp"
+          required />
+      </div>
+
+      <div class="form-control w-full mb-3">
+        <label class="label py-1">
+          <span class="label-text">Commande</span>
+        </label>
+        <input
+          type="text"
+          class="input input-bordered input-sm w-full"
+          [(ngModel)]="editingItem.config.command"
+          name="command"
+          placeholder="ex: npx"
+          required />
+      </div>
+
+      <div class="form-control w-full mb-3">
+        <label class="label py-1">
+          <span class="label-text">Arguments (un par ligne)</span>
+        </label>
+        <textarea
+          class="textarea textarea-bordered textarea-sm w-full"
+          [(ngModel)]="argsText"
+          name="argsText"
+          placeholder="-y
+@modelcontextprotocol/server-github"
+          rows="3"
+          (input)="updateArgsList()"></textarea>
+      </div>
+
+      <div class="form-control mb-2">
+        <label class="label cursor-pointer justify-start gap-2 py-1">
+          <input
+            type="checkbox"
+            class="checkbox checkbox-xs"
+            [(ngModel)]="showEnvSection"
+            name="showEnvSection" />
+          <span class="label-text">Variables d'environnement</span>
+        </label>
+      </div>
+
+      <div *ngIf="showEnvSection" class="space-y-2 mb-3 p-2 border rounded">
+        <div *ngFor="let envVar of envVars; let i = index" class="grid grid-cols-2 gap-1">
+          <input
+            type="text"
+            class="input input-bordered input-xs"
+            [(ngModel)]="envVar.key"
+            [name]="'envKey' + i"
+            placeholder="NOM_VARIABLE" />
+          <div class="flex items-center gap-1">
+            <input
+              type="text"
+              class="input input-bordered input-xs flex-grow"
+              [(ngModel)]="envVar.value"
+              [name]="'envValue' + i"
+              placeholder="valeur" />
+            <button
+              type="button"
+              class="btn btn-error btn-xs btn-square"
+              (click)="removeEnvVar(i)">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <button
+          type="button"
+          class="btn btn-xs btn-outline w-full"
+          (click)="addEnvVar()">
+          Ajouter
+        </button>
+      </div>
+
+      <div class="form-control mb-3">
+        <label class="label cursor-pointer justify-start gap-2 py-1">
+          <input
+            type="checkbox"
+            class="checkbox checkbox-xs"
+            [(ngModel)]="editingItem.enabled"
+            name="enabled" />
+          <span class="label-text">Activé</span>
+        </label>
+      </div>
+
+      <div class="modal-action">
+        <button type="button" class="btn btn-sm" (click)="onCancel()">Annuler</button>
+        <button type="submit" class="btn btn-sm btn-primary" [disabled]="!isFormValid()">Enregistrer</button>
+      </div>
+    </form>
+  </div>
+</div>

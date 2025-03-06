@@ -1,0 +1,66 @@
+{
+  "name": "claude-mcp-manager",
+  "version": "0.0.1",
+  "main": "src/main/main.js",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test",
+    "electron": "electron .",
+    "electron-dev": "ng build --base-href ./ && electron .",
+    "electron-only": "electron .",
+    "electron-dev-norebuild": "electron .",
+    "package": "electron-builder build"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "^19.1.0",
+    "@angular/common": "^19.1.0",
+    "@angular/compiler": "^19.1.0",
+    "@angular/core": "^19.1.0",
+    "@angular/forms": "^19.1.0",
+    "@angular/platform-browser": "^19.1.0",
+    "@angular/platform-browser-dynamic": "^19.1.0",
+    "@angular/router": "^19.1.0",
+    "rxjs": "~7.8.0",
+    "tailwindcss": "^3.4.1",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.15.0"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^19.1.4",
+    "@angular/cli": "^19.1.4",
+    "@angular/compiler-cli": "^19.1.0",
+    "@types/jasmine": "~5.1.0",
+    "@types/node": "^20.10.5",
+    "autoprefixer": "^10.4.19",
+    "daisyui": "^5.0.0",
+    "electron": "^35.0.0",
+    "electron-builder": "^25.1.8",
+    "jasmine-core": "~5.5.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.2.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.1.0",
+    "postcss": "^8.4.35",
+    "typescript": "~5.7.2"
+  },
+  "build": {
+    "appId": "com.claude.mcpmanager",
+    "productName": "Claude MCP Manager",
+    "directories": {
+      "output": "dist-electron"
+    },
+    "files": [
+      "dist/**/*",
+      "src/main/**/*"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "src/assets/icon.ico"
+    }
+  }
+}
