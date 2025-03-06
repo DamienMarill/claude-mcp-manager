@@ -5,15 +5,15 @@ const url = require('url');
 const { setupTray } = require('./tray');
 const { loadConfigFile, saveConfigFile } = require('./config-manager');
 
+// Mode développement ou production
+const isDev = process.env.NODE_ENV === 'development';
+
 // Désactiver l'accélération hardware - peut aider sur ARM64
 app.disableHardwareAcceleration();
 
 // Désactiver le cache persistant
 app.commandLine.appendSwitch('disable-http-cache');
 app.commandLine.appendSwitch('disable-gpu-shader-disk-cache');
-
-// Activer le débogage
-app.commandLine.appendSwitch('remote-debugging-port', '9222');
 
 // Chemin vers le fichier de configuration Claude
 const CONFIG_PATH = path.join(
@@ -32,31 +32,27 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 420,
     height: 550,
-    show: true, // Visible immédiatement pour déboguer
+    show: false, // Caché au démarrage, affiché après le chargement
     frame: false,
     skipTaskbar: true,
     resizable: false,
     alwaysOnTop: false,
-    backgroundColor: '#1E293B', // Couleur de fond sombre en cas de problème de chargement
+    backgroundColor: '#1E293B',
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,
       nodeIntegration: false,
       webSecurity: false,
-      devTools: true // Activer les outils de développement
+      devTools: true // Garder la possibilité d'ouvrir les DevTools, mais ne pas les ouvrir automatiquement
     }
   });
 
-  // Ouvrir les outils de développement pour déboguer
-  mainWindow.webContents.openDevTools();
-
   // Chemin absolu vers le fichier index.html
   const indexPath = path.join(__dirname, '../../dist/claude-mcp-manager/browser/index.html');
-  console.log('Chemin du fichier index.html:', indexPath);
 
   // Vérifier si le fichier existe
   if (fs.existsSync(indexPath)) {
-    console.log('Le fichier index.html existe.');
+    console.log('Le fichier index.html trouvé.');
   } else {
     console.log('ERREUR: Le fichier index.html n\'existe pas!');
   }
@@ -64,11 +60,16 @@ function createWindow() {
   // Charger le fichier HTML directement par son chemin de fichier absolu
   mainWindow.loadFile(indexPath);
 
+  // Afficher la fenêtre une fois que tout est chargé
+  mainWindow.webContents.on('did-finish-load', () => {
+    mainWindow.show();
+  });
+
   // Gérer les erreurs de chargement
   mainWindow.webContents.on('did-fail-load', (event, errorCode, errorDescription) => {
     console.error('Erreur de chargement:', errorCode, errorDescription);
-    // Afficher une page d'erreur simple
     mainWindow.webContents.loadURL('data:text/html;charset=utf-8,<h1>Erreur de chargement</h1><p>' + errorDescription + '</p>');
+    mainWindow.show(); // Montrer la fenêtre même en cas d'erreur
   });
 
   // Se ferme quand on clique ailleurs
@@ -85,11 +86,6 @@ function createWindow() {
 
 app.on('ready', async () => {
   try {
-    // Afficher les chemins importants pour le débogage
-    console.log('AppData path:', app.getPath('appData'));
-    console.log('Exe path:', app.getPath('exe'));
-    console.log('Config PATH:', CONFIG_PATH);
-
     // Chargement de la configuration
     configData = await loadConfigFile(CONFIG_PATH);
 
@@ -143,14 +139,12 @@ app.on('before-quit', () => {
 function setupIpcListeners() {
   // Récupérer la configuration
   ipcMain.handle('get-config', () => {
-    console.log('get-config appelé, retournant:', configData);
     return configData;
   });
 
   // Enregistrer la configuration
   ipcMain.handle('save-config', async (event, newConfig) => {
     try {
-      console.log('save-config appelé avec:', newConfig);
       await saveConfigFile(CONFIG_PATH, newConfig);
       configData = newConfig;
 
@@ -169,7 +163,6 @@ function setupIpcListeners() {
   // Toggle un MCP depuis le tray
   ipcMain.handle('toggle-mcp-from-tray', async (event, { name, enabled }) => {
     try {
-      console.log('toggle-mcp-from-tray appelé:', name, enabled);
       // Mettre à jour la configuration
       if (configData && configData.mcpServers) {
         if (enabled) {
@@ -211,7 +204,6 @@ function setupIpcListeners() {
 
   // Changer le thème
   ipcMain.handle('change-theme', async (event, theme) => {
-    console.log('change-theme appelé avec:', theme);
     return { success: true };
   });
 }
