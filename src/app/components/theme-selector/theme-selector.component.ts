@@ -14,20 +14,26 @@ import { AVAILABLE_THEMES, ThemeConfig } from '../../models/theme.model';
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
         </svg>
       </div>
-      <ul tabindex="0" class="dropdown-content menu p-1 shadow bg-base-100 rounded-box w-52 text-sm mt-1 z-50">
-        <li class="menu-title text-xs">Thèmes</li>
-        <li *ngFor="let theme of themes">
-          <a (click)="setTheme(theme.value)" [class.active]="currentTheme === theme.value">
-            <span>{{ theme.icon }} {{ theme.name }}</span>
-          </a>
-        </li>
-      </ul>
+      <div tabindex="0" class="dropdown-content menu shadow bg-base-100 rounded-box w-80 text-sm mt-1 z-50 p-2">
+        <div class="mb-2 pl-2 text-xs font-semibold">Thèmes</div>
+        <div class="grid grid-cols-2 gap-1">
+          <div *ngFor="let theme of themes">
+            <a
+              class="px-3 py-1 flex items-center rounded-md hover:bg-base-200 transition-colors whitespace-nowrap"
+              [class.bg-base-200]="currentTheme === theme.value"
+              (click)="setTheme(theme.value)">
+              <span>{{ theme.icon }} {{ theme.name }}</span>
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   `,
   styles: [`
     .dropdown-content {
       max-height: 300px;
       overflow-y: auto;
+      overflow-x: hidden;
     }
   `]
 })
@@ -46,10 +52,10 @@ export class ThemeSelectorComponent implements OnInit {
   setTheme(theme: string): void {
     // Mettre à jour le data-theme sur le html
     document.documentElement.setAttribute('data-theme', theme);
-    
+
     // Enregistrer la préférence
     localStorage.setItem('claude-mcp-theme', theme);
-    
+
     // Mettre à jour l'état local
     this.currentTheme = theme;
 
