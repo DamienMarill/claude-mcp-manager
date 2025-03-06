@@ -1,6 +1,6 @@
 {
   "name": "claude-mcp-manager",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Un gestionnaire de Model Context Protocol pour Claude Desktop",
   "author": {
     "name": "Marill",

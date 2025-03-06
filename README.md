@@ -1,11 +1,15 @@
 # Claude MCP Manager
 
 <p align="center">
-  <img src="src/assets/ioupioup.png" style="border-radius: 10px" width="100" alt="Claude MCP Manager Logo"/>
+  <img src="src/assets/icon-duck.svg" width="100" alt="Claude MCP Manager Logo"/>
 </p>
 
 <p align="center">
   Un gestionnaire de Model Context Protocol pour Claude Desktop sous Windows
+</p>
+
+<p align="center">
+  <b>Version actuelle: 1.0.1</b>
 </p>
 
 ## 📋 Description
@@ -22,8 +26,12 @@ Cette application permet de:
 
 ### Prérequis
 - Windows 10/11
-- [Node.js](https://nodejs.org/) (v18+ recommandé)
 - [Claude Desktop](https://claude.ai/desktop)
+
+### Installation depuis l'exécutable portable
+1. Téléchargez la dernière version portable depuis la section [Releases](https://github.com/votre-username/claude-mcp-manager/releases)
+2. Exécutez le fichier `ClaudeMCPManager.exe`
+3. L'application apparaîtra dans la barre système de Windows
 
 ### Installation depuis les sources
 ```bash
@@ -39,10 +47,15 @@ npm run build
 
 # Lancer l'application
 npm run electron-only
+
+# OU utiliser le script de reconstruction
+.\rebuild-run.bat
 ```
 
-### Installation depuis le portable
-Téléchargez la dernière version portable depuis la section [Releases](https://github.com/votre-username/claude-mcp-manager/releases) et exécutez le fichier `.exe`.
+### Créer un exécutable portable
+```bash
+.\build-release.bat
+```
 
 ## 🔧 Utilisation
 
@@ -113,7 +126,8 @@ Le fichier géré par l'application se trouve à l'emplacement suivant:
 - `npm run build`: Compile l'application Angular
 - `npm run electron`: Lance Electron seul
 - `npm run electron-dev`: Compile Angular puis lance Electron
-- `npm run package`: Crée un package pour la distribution
+- `.\rebuild-run.bat`: Nettoie, reconstruit et lance l'application
+- `.\build-release.bat`: Crée un exécutable portable
 
 ## 📝 Licence
 
@@ -125,6 +139,4 @@ MIT
 
 ---
 
-*Fait avec 💖 et beaucoup de café 🍙.*
-
-*Développé totalement par Claude. Sans manipulation humaine du code*
+*Fait avec 💖 et beaucoup de café 🍙*
