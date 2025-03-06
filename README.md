@@ -1,7 +1,7 @@
 # Claude MCP Manager
 
 <p align="center">
-  <img src="src/assets/icon.png" width="100" alt="Claude MCP Manager Logo"/>
+  <img src="src/assets/ioupioup.png" style="border-radius: 10px" width="100" alt="Claude MCP Manager Logo"/>
 </p>
 
 <p align="center">
@@ -125,4 +125,6 @@ MIT
 
 ---
 
-*Fait avec 💖 et beaucoup de café 🍙*
+*Fait avec 💖 et beaucoup de café 🍙.*
+
+*Développé totalement par Claude. Sans manipulation humaine du code*

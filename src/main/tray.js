@@ -8,19 +8,9 @@ const path = require('path');
  * @returns {Electron.Tray} - L'objet Tray créé
  */
 function setupTray(app, configData) {
-  // Créer une icône par défaut pour la barre des tâches (un carré bleu pour l'instant)
-  const trayIcon = nativeImage.createEmpty();
-  trayIcon.addRepresentation({
-    width: 16,
-    height: 16,
-    scaleFactor: 1.0,
-    buffer: Buffer.from(
-      Array(16 * 16 * 4).fill(0).map((_, i) => {
-        // RGBA: bleu avec alpha 255
-        return i % 4 === 0 ? 0 : (i % 4 === 1 ? 0 : (i % 4 === 2 ? 255 : 255));
-      })
-    )
-  });
+  // Utiliser notre nouvelle icône de canard
+  const iconPath = path.join(__dirname, '../assets/ioupioup.png');
+  const trayIcon = nativeImage.createFromPath(iconPath);
 
   // Créer l'objet Tray
   const tray = new Tray(trayIcon);

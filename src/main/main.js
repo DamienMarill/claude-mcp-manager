@@ -40,7 +40,7 @@ function createWindow() {
       nodeIntegration: false,
       webSecurity: false
     },
-    icon: path.join(__dirname, '../assets/icon.png')
+    icon: path.join(__dirname, '../assets/ioupioup.png')
   });
 
   // En dev, on charge l'URL du serveur Angular
