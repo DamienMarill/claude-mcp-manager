@@ -10,11 +10,11 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "electron": "electron .",
-    "electron-dev": "ng build --base-href ./ && electron .",
+    "electron-dev": "npm run build && electron .",
     "electron-only": "electron .",
     "electron-dev-norebuild": "electron .",
     "package": "electron-builder build",
